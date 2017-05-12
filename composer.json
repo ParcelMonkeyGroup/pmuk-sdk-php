@@ -2,6 +2,7 @@
 	"name": "parcelmonkeygroup/pmuk-sdk-php",
 	"homepage": "https://github.com/ParcelMonkeyGroup/pmuk-sdk-php",
 	"description": "PHP SDK for the Parcel Monkey UK API",
+	"license": "MIT",
 	"authors": [
 	{
 		"name": "Richard Barrett",
