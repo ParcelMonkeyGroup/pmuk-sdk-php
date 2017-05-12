@@ -1,0 +1,27 @@
+{
+	"name": "parcelmonkeygroup/pmuk-sdk-php",
+	"homepage": "https://github.com/ParcelMonkeyGroup/pmuk-sdk-php",
+	"description": "PHP SDK for the Parcel Monkey UK API",
+	"authors": [
+	{
+		"name": "Richard Barrett",
+		"email": "contact@parcelmonkey.com"
+	}
+	],
+	"require": {
+      "nategood/httpful": "dev-master",
+      "php": ">=5.6.0"
+  },
+	"autoload": {
+		"classmap": [
+		"src/client.php",
+		"src/request.php",
+		"src/HelloWorld.php",
+		"src/GetQuote.php",
+		"src/CreateShipment.php",
+		"src/GetShipmentDetails.php",
+		"src/GetLabelUrl.php",
+		"src/GetTrackingUrl.php"
+		]
+	}
+}
