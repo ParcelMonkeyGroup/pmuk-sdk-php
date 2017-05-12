@@ -3,10 +3,12 @@
 	"homepage": "https://github.com/ParcelMonkeyGroup/pmuk-sdk-php",
 	"description": "PHP SDK for the Parcel Monkey UK API",
 	"license": "MIT",
+	"keywords": ["parcel","delivery","api","shipping","tracking"],
+  "version": "1.0.2",
 	"authors": [
 	{
 		"name": "Richard Barrett",
-		"email": "contact@parcelmonkey.com"
+		"email": "noreply@parcelmonkey.com"
 	}
 	],
 	"require": {
