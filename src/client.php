@@ -4,7 +4,7 @@ namespace parcelmonkeygroup\pmuksdk;
 
 class client {
   
-  var $endpoint = 'http://api3.parcelmonkey.local/';
+  var $endpoint = 'https://api.parcelmonkey.co.uk/';
   var $Version;
   var $UserId;
   var $ApiKey;
