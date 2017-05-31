@@ -4,7 +4,7 @@
 	"description": "PHP SDK for the Parcel Monkey UK API",
 	"license": "MIT",
 	"keywords": ["parcel","delivery","api","shipping","tracking"],
-  "version": "2.0.1",
+  "version": "2.0.2",
 	"authors": [
 	{
 		"name": "Richard Barrett",
@@ -21,10 +21,7 @@
 		"src/request.php",
 		"src/HelloWorld.php",
 		"src/GetQuote.php",
-		"src/CreateShipment.php",
-		"src/GetShipmentDetails.php",
-		"src/GetLabelUrl.php",
-		"src/GetTrackingUrl.php"
+		"src/CreateShipment.php"
 		]
 	}
 }
