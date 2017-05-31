@@ -8,7 +8,7 @@ use parcelmonkeygroup\pmuksdk\GetQuote;
 // Add your credentials (obtain these from your account on parcelmonkey.co.uk)
 $UserId   = 'YOURUSERID';
 $ApiKey   = 'YOURAPIKEY';
-$Version  = 2.1;
+$Version  = '3.0';
 
 // Initialise the client 
 $client = new client($UserId,$ApiKey, $Version);
@@ -46,6 +46,8 @@ $request->setCollectionAddress(
   'noreply@parcelmonkey.com'
 
 );
+
+$request->setCollectionDate('2017-05-31');
 
 $request->addBox(10,10,10,1);
 

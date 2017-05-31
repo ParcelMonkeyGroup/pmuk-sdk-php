@@ -4,12 +4,12 @@ namespace parcelmonkeygroup\pmuksdk;
 
 class client {
   
-  var $endpoint = 'https://api.parcelmonkey.co.uk/';
+  var $endpoint = 'http://api3.parcelmonkey.local/';
   var $Version;
   var $UserId;
   var $ApiKey;
 
-  public function __construct($UserId, $ApiKey, $Version="2.1") {
+  public function __construct($UserId, $ApiKey, $Version="3.0") {
     $this->set_credentials($UserId, $ApiKey);
     $this->set_version($Version);
   }
@@ -23,30 +23,26 @@ class client {
     $this->Version = $Version;
   }
     
-  public function build_request($uri, $method, $headers, $params=array()) {
+  public function build_request($uri, $method, $headers, $payload) {
     
-    // Always want JSON
-    $params['ResponseFormat'] = 'JSON';
+    if($this->debug_payload) {
+      print_r($payload);exit;
+    }    
+    
+    if(!is_string($payload)) $payload=json_encode($payload);
     
     // Authorization
-    $params['Version'] = $this->Version;
-    $params['ApiKey'] = $this->ApiKey;
-    $params['UserId'] = $this->UserId;
+    $headers['apiversion'] = $this->Version;
+    $headers['token'] = $this->ApiKey;
+    $headers['UserId'] = $this->UserId;
     
     $url = rtrim($this->endpoint,'/').'/'.ltrim($uri,'/');
     
     switch(strtolower($method)) {
-      case 'get':
-      
-        // Build URL with parameters
-        $url = $url.http_build_query($params);
-        $request = \Httpful\Request::get($url);
-        
-      break;
       case 'post':
       
-        $headers['Content-Type'] = 'application/x-www-form-urlencoded';
-        $request = \Httpful\Request::post($url)->body(http_build_query($params));
+        $headers['Content-Type'] = 'application/json';
+        $request = \Httpful\Request::post($url)->body($payload);
       
       break;
     }
@@ -59,9 +55,9 @@ class client {
     return $request;
   }
   
-  public function send_request($uri, $method, $headers, $params) {
+  public function send_request($uri, $method, $headers, $payload) {
     
-    $request = $this->build_request($uri,$method,$headers,$params);
+    $request = $this->build_request($uri,$method,$headers,$payload);
     
     $response = $request->send();
     return $response;

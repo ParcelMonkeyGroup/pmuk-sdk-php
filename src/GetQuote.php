@@ -24,16 +24,16 @@ class GetQuote extends request {
     
     $args = func_get_args();
     
-    $this->set_param('ShipmentDeliveryAddress1', func_get_args()[0]);
-    $this->set_param('ShipmentDeliveryAddress2', func_get_args()[1]);
-    $this->set_param('ShipmentDeliveryAddress3', func_get_args()[2]);
-    $this->set_param('ShipmentDeliveryTown', func_get_args()[3]);
-    $this->set_param('ShipmentDeliveryCounty', func_get_args()[4]);
-    $this->set_param('ShipmentDeliveryPostcode', func_get_args()[5]);
-    $this->set_param('ShipmentDeliveryCountryCode', func_get_args()[6]);
-    $this->set_param('ShipmentDeliveryName', func_get_args()[7]);
-    $this->set_param('ShipmentDeliveryMobile', func_get_args()[8]);
-    $this->set_param('ShipmentDeliveryEmail', func_get_args()[9]);
+    $this->payload['recipient']['address1'] = func_get_args()[0];
+    $this->payload['recipient']['address2'] = func_get_args()[1];
+    $this->payload['recipient']['address3'] = func_get_args()[2];
+    $this->payload['recipient']['town'] = func_get_args()[3];
+    $this->payload['recipient']['county'] = func_get_args()[4];
+    $this->payload['recipient']['postcode'] = func_get_args()[5];
+    $this->payload['destination'] = func_get_args()[6];
+    $this->payload['recipient']['name'] = func_get_args()[7];
+    $this->payload['recipient']['phone'] = func_get_args()[8];
+    $this->payload['recipient']['email'] = func_get_args()[9];
     
   }
   
@@ -54,59 +54,43 @@ class GetQuote extends request {
     
     $args = func_get_args();
     
-    $this->set_param('ShipmentCollectionAddress1', func_get_args()[0]);
-    $this->set_param('ShipmentCollectionAddress2', func_get_args()[1]);
-    $this->set_param('ShipmentCollectionAddress3', func_get_args()[2]);
-    $this->set_param('ShipmentCollectionTown', func_get_args()[3]);
-    $this->set_param('ShipmentCollectionCounty', func_get_args()[4]);
-    $this->set_param('ShipmentCollectionPostcode', func_get_args()[5]);
-    $this->set_param('ShipmentCollectionCountryCode', func_get_args()[6]);
-    $this->set_param('ShipmentCollectionName', func_get_args()[7]);
-    $this->set_param('ShipmentCollectionMobile', func_get_args()[8]);
-    $this->set_param('ShipmentCollectionEmail', func_get_args()[9]);
+    $this->payload['sender']['address1'] = func_get_args()[0];
+    $this->payload['sender']['address2'] = func_get_args()[1];
+    $this->payload['sender']['address3'] = func_get_args()[2];
+    $this->payload['sender']['town'] = func_get_args()[3];
+    $this->payload['sender']['county'] = func_get_args()[4];
+    $this->payload['sender']['postcode'] = func_get_args()[5];
+    $this->payload['origin'] = func_get_args()[6];
+    $this->payload['sender']['name'] = func_get_args()[7];
+    $this->payload['sender']['phone'] = func_get_args()[8];
+    $this->payload['sender']['email'] = func_get_args()[9];
     
   }
     
-  function setDeliveryCountryCode($CountryCode) {
-    $this->set_param('ShipmentDeliveryCountryCode', $CountryCode);
-  }
   
   function addBox($length,$width,$height,$weight) {
     
     // All dimensions in  CM and KG
-    $boxes = $this->get_param('Boxes');
-    if(!is_array($boxes)) $boxes = array();
-    
-    $boxes[]=array(
+    $this->payload['boxes'][]=array(
       'length'=>$length,
       'width'=>$width,
       'height'=>$height,
       'weight'=>$weight
     );
     
-    $this->set_param('Boxes', $boxes);
-    
   }
   
   function setGoodsValue($ShipmentGoodsValue) {
-    $this->set_param('ShipmentGoodsValue', $ShipmentGoodsValue);
+    $this->payload['goods_value'] = $ShipmentGoodsValue;
   }
   
   function setPalletised($bool) {
-    $this->set_param('ShipmentPalletised', $bool ? true : false);
+    $this->payload['is_palletised'] = $bool;
   }
   
-  function send() {
-    
-    if(empty($this->get_param('ShipmentPalletised'))) $this->set_param('ShipmentPalletised', 0);
-    if(empty($this->get_param('ShipmentGoodsValue'))) $this->set_param('ShipmentGoodsValue', 0);
-    
-    $r = parent::send();
-    return $r->services->service;
-    
+  function setCollectionDate($date) {
+    $this->payload['collection_date'] = date('Y-m-d', strtotime($date));
   }
-  
-  
   
 }
 

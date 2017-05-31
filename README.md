@@ -4,8 +4,8 @@ This package is an SDK to interact with the Parcel Monkey UK API. Using this you
 Parcel Monkey UK gives you access to well known services such as Parcelforce, DHL, DPD, DX and more.
 
 ## API Documentation & Version
-Currently compatible with Version 2.1 of the Parcel Monkey UK API.
-https://www.parcelmonkey.co.uk/resources/api/api_doc.pdf
+Currently compatible with Version 3.0 of the Parcel Monkey UK API.
+https://www.parcelmonkey.co.uk/developers/
 
 ## Installation
 You can install this package using composer:
@@ -25,13 +25,14 @@ use parcelmonkeygroup\pmuksdk\HelloWorld;
 // Add your credentials (obtain these from your account on parcelmonkey.co.uk)
 $UserId   = 'YOURUSERID';
 $ApiKey   = 'YOURAPIKEY';
-$Version  = 2.1;
+$Version  = '3.0';
 
 // Initialise the client 
 $client = new client($UserId,$ApiKey, $Version);
 
 // Create the request passing in the client
 $request = new HelloWorld($client);
+$request->setEcho('testing 123');
 
 try {
   

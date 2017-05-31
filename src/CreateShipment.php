@@ -8,25 +8,38 @@ class CreateShipment extends GetQuote {
   var $method = 'POST';
   
   function setServiceCode($ServiceCode) {
-    $this->set_param('ServiceCode', $ServiceCode);
+    $this->payload['service'] = $ServiceCode;
   }
-  
-  function setCollectionDate($datestring) {
-    $this->set_param('ShipmentCollectionDate', date('Y-m-d', strtotime($datestring)));
-  } 
   
   function setContentsDescription($ShipmentContents) {
-    $this->set_param('ShipmentContents', $ShipmentContents);
+    $this->payload['goods_description'] = $ShipmentContents;
   }
   
-  function send() {
+  function addCustomsItem($quantity,$description,$value_per_unit) {
+    $this->payload['customs']['items'][]=array('quantity'=>$quantity,'description'=>$description,'value_per_unit'=>$value_per_unit);
+  }
+  
+  function setCustomsData(
     
-    if(empty($this->get_param('ShipmentPalletised'))) $this->set_param('ShipmentPalletised', 0);
-    if(empty($this->get_param('ShipmentGoodsValue'))) $this->set_param('ShipmentGoodsValue', 0);
+    $doc_type,
+    $reason,
+    $sender_name,
+    $sender_tax_reference,
+    $recipient_name,
+    $recipient_tax_reference,
+    $country_of_manufacture
+  
+  ) {
     
-    $r = request::send();
+    $args = func_get_args();
     
-    return $r->shipment;
+    $this->payload['customs']['doc_type'] = func_get_args()[0];
+    $this->payload['customs']['reason'] = func_get_args()[1];
+    $this->payload['customs']['sender_name'] = func_get_args()[2];
+    $this->payload['customs']['sender_tax_reference'] = func_get_args()[3];
+    $this->payload['customs']['recipient_name'] = func_get_args()[4];
+    $this->payload['customs']['recipient_tax_reference'] = func_get_args()[5];
+    $this->payload['customs']['country_of_manufacture'] = func_get_args()[6];
     
   }
   
