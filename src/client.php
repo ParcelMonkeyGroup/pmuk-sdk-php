@@ -8,6 +8,7 @@ class client {
   var $Version;
   var $UserId;
   var $ApiKey;
+  var $debug_payload;
 
   public function __construct($UserId, $ApiKey, $Version="3.0") {
     $this->set_credentials($UserId, $ApiKey);
